@@ -188,7 +188,10 @@ class ProtonMail:
         :returns: :py:obj:`list[Message]`
         """
         label_id = label_or_id.id if isinstance(label_or_id, Label) else label_or_id
-        count_page = ceil(self.get_messages_count()[5]['Total'] / page_size)
+        list_for_label = next((x for x in self.get_messages_count() if x['LabelID'] == label_id), None)
+        if list_for_label is None:
+            return []
+        count_page = ceil(list_for_label['Total'] / page_size)
         args_list = [(page_num, page_size, label_id) for page_num in range(count_page)]
         messages_lists = self._async_helper(self._async_get_messages, args_list)
         messages_dict = self._flattening_lists(messages_lists)
