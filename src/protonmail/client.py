@@ -1210,6 +1210,8 @@ class ProtonMail:
                 raise ConnectionRefusedError(f"Too many recent logins: {auth.get('Error')}")
             if auth["Code"] == 10003:
                 raise AccountAbuseSuspended(f'{auth.get("Error")}')
+            if auth["Code"] == 10002:
+                raise InactiveAccountDeleted(f'{auth.get("Error")}')
             if auth.get('Error'):
                 raise LoginError(auth['Error'])
 
