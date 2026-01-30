@@ -49,6 +49,8 @@ class InvalidCaptcha(Exception):
 class AccountAbuseSuspended(Exception):
     """This account has been suspended by an automated anti-abuse system"""
 
+class InactiveAccountDeleted(Exception):
+    """Account is no longer available due to inactivity"""
 
 class LoginError(Exception):
     """General error during login, when api error code is not familiar"""
